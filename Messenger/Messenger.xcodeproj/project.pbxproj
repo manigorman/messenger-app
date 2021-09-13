@@ -13,6 +13,7 @@
 		C53A991126EFAD990015EECC /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991026EFAD990015EECC /* VideoPlayerViewController.swift */; };
 		C53A991326EFADB50015EECC /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991226EFADB50015EECC /* NewConversationViewController.swift */; };
 		C53A991526EFADCA0015EECC /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991426EFADCA0015EECC /* ProfileViewController.swift */; };
+		C53A991A26EFC4320015EECC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991926EFC4320015EECC /* Extensions.swift */; };
 		C5CB36CF26EFA7890037A6DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */; };
 		C5CB36D126EFA7890037A6DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36D026EFA7890037A6DF /* SceneDelegate.swift */; };
 		C5CB36D326EFA7890037A6DF /* ConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36D226EFA7890037A6DF /* ConversationViewController.swift */; };
@@ -28,6 +29,7 @@
 		C53A991026EFAD990015EECC /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
 		C53A991226EFADB50015EECC /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		C53A991426EFADCA0015EECC /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C53A991926EFC4320015EECC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C5CB36CB26EFA7890037A6DF /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C5CB36D026EFA7890037A6DF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -53,8 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				C5CB36D226EFA7890037A6DF /* ConversationViewController.swift */,
-				C53A990A26EFAC4A0015EECC /* LoginViewController.swift */,
-				C53A990C26EFAC540015EECC /* RegisterViewController.swift */,
+				C53A991626EFB05E0015EECC /* Login */,
 				C53A990E26EFAD8A0015EECC /* PhotoViewerViewController.swift */,
 				C53A991026EFAD990015EECC /* VideoPlayerViewController.swift */,
 				C53A991226EFADB50015EECC /* NewConversationViewController.swift */,
@@ -91,6 +92,7 @@
 			children = (
 				C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */,
 				C5CB36D026EFA7890037A6DF /* SceneDelegate.swift */,
+				C53A991926EFC4320015EECC /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -102,6 +104,15 @@
 				C5CB36D926EFA78A0037A6DF /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		C53A991626EFB05E0015EECC /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C53A990A26EFAC4A0015EECC /* LoginViewController.swift */,
+				C53A990C26EFAC540015EECC /* RegisterViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		C5CB36C226EFA7890037A6DF = {
@@ -208,6 +219,7 @@
 				C53A991326EFADB50015EECC /* NewConversationViewController.swift in Sources */,
 				C5CB36D326EFA7890037A6DF /* ConversationViewController.swift in Sources */,
 				C53A991126EFAD990015EECC /* VideoPlayerViewController.swift in Sources */,
+				C53A991A26EFC4320015EECC /* Extensions.swift in Sources */,
 				C5CB36CF26EFA7890037A6DF /* AppDelegate.swift in Sources */,
 				C53A991526EFADCA0015EECC /* ProfileViewController.swift in Sources */,
 				C5CB36D126EFA7890037A6DF /* SceneDelegate.swift in Sources */,
