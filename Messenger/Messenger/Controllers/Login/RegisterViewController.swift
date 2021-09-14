@@ -49,7 +49,7 @@ class RegisterViewController: UIViewController {
         let field = UITextField()
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.placeholder = "Last Name Address..."
+        field.placeholder = "Last Name..."
         field.backgroundColor = .white
         field.layer.borderWidth = 1
         field.layer.borderColor = UIColor.lightGray.cgColor
