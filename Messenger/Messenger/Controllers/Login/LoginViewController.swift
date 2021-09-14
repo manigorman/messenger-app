@@ -134,20 +134,33 @@ class LoginViewController: UIViewController {
             return
         }
         
-        // Firebase Log In
-        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Failed to log in user with email: \(email)")
+        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
+            guard let strongSelf = self else {
                 return
             }
-            let user = result.user
-            print("Logged In User: \(user)")
+            guard !exists else {
+                //user already exists
+                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
+                return
+            }
+            // Firebase Log In
+            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+                guard let result = authResult, error == nil else {
+                    print("Failed to log in user with email: \(email)")
+                    return
+                }
+                let user = result.user
+                print("Logged In User: \(user)")
+                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+            }
         }
     }
+        
+        
     
-    func alertUserLoginError() {
+    func alertUserLoginError(message: String = "Please enter all information to create a new account.") {
         let alert = UIAlertController(title: "Woops",
-                                      message: "Please enter information to log in.",
+                                      message: message,
                                       preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Dismiss",
