@@ -40,16 +40,31 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            
-            let vc = LoginViewController() // Создаем ViewController для окна входа
-            let nav = UINavigationController(rootViewController: vc) // создаем NavigationController с корневым ViewController в vc
-            nav.modalPresentationStyle = .fullScreen // Стиль открытия nav - полноэкранный
-            present(nav, animated: true) // Показать nav без анимации
-        }
-        catch {
-            print("Failed to log out.")
-        }
+        let actionSheet = UIAlertController(title: "",
+                                      message: "Would you like to quit?",
+                                      preferredStyle: .actionSheet)
+        actionSheet.addAction(UIAlertAction(title: "Log Out",
+                                      style: .destructive,
+                                      handler: { [weak self] _ in
+                                        
+                                        guard let strongSelf = self else {
+                                            return
+                                        }
+                                        
+                                        do {
+                                            try FirebaseAuth.Auth.auth().signOut()
+                                            
+                                            let vc = LoginViewController() // Создаем ViewController для окна входа
+                                            let nav = UINavigationController(rootViewController: vc) // создаем NavigationController с корневым ViewController в vc
+                                            nav.modalPresentationStyle = .fullScreen // Стиль открытия nav - полноэкранный
+                                            strongSelf.present(nav, animated: true) // Показать nav без анимации
+                                        }
+                                        catch {
+                                            print("Failed to log out.")
+                                        }
+                                      }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(actionSheet, animated: true)
     }
 }
