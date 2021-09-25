@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
 
+    let spinner = JGProgressHUD(style: .dark)
+    
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -24,8 +27,8 @@ class RegisterViewController: UIViewController {
         imageView.tintColor = .white
         imageView.contentMode = .scaleAspectFit
         imageView.layer.masksToBounds = true
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.lightGray.cgColor
+//        imageView.layer.borderWidth = 2
+//        imageView.layer.borderColor = UIColor.lightGray.cgColor
         return imageView
     } ()
     
@@ -205,10 +208,16 @@ class RegisterViewController: UIViewController {
             return
         }
         
+        spinner.show(in: view)
+        
         // Firebase Sign Up
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
             guard let strongSelf = self else {
                 return
+            }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
             }
             
             guard authResult != nil, error == nil else {

@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
 
+    private let spinner = JGProgressHUD(style: .dark)
+    
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.clipsToBounds = true
@@ -30,13 +33,16 @@ class LoginViewController: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .continue
+        field.textColor = UIColor.white
         field.layer.cornerRadius = 12
         field.layer.borderWidth = 1
         field.layer.borderColor = UIColor.lightGray.cgColor
-        field.placeholder = "Email Address..."
+        //field.placeholder = "Email Address..."
+        field.attributedPlaceholder = NSAttributedString(string: "Email Address...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .link
         
         return field
     } ()
@@ -46,13 +52,15 @@ class LoginViewController: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .done
+        field.textColor = UIColor.white
         field.layer.borderWidth = 1
         field.layer.cornerRadius = 12
         field.layer.borderColor = UIColor.lightGray.cgColor
-        field.placeholder = "Password..."
+        //field.placeholder = "Password..."
+        field.attributedPlaceholder = NSAttributedString(string: "Password...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .white
+        field.backgroundColor = .link
         field.isSecureTextEntry = true
         
         return field
@@ -73,8 +81,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Login" // Заголовок нашего окна входа nav
         view.backgroundColor = .white
+        title = "Login" // Заголовок нашего окна входа nav
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", // Cоздаем правую кнопку на верхней панели
                                                             style: .done,
@@ -94,6 +102,7 @@ class LoginViewController: UIViewController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        // scrollView.addSubview(spinner)
     }
     
     override func viewDidLayoutSubviews() { // Указываем размеры наших subviews, задаем их отступы
@@ -134,17 +143,29 @@ class LoginViewController: UIViewController {
             return
         }
         
-        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
-            guard let strongSelf = self else {
-                return
-            }
-            guard !exists else {
-                //user already exists
-                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
-                return
-            }
+//        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
+//            guard let strongSelf = self else {
+//                return
+//            }
+//            
+//            guard !exists else {
+//                //user already exists
+//                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
+//                return
+//            }
+            
+            
+            spinner.show(in: view)
+            
             // Firebase Log In
-            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+                guard let strongSelf = self else {
+                    return
+                }
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+                }
+                
                 guard let result = authResult, error == nil else {
                     print("Failed to log in user with email: \(email)")
                     return
@@ -154,7 +175,7 @@ class LoginViewController: UIViewController {
                 strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             }
         }
-    }
+//    }
         
         
     
