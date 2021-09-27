@@ -157,7 +157,7 @@ class LoginViewController: UIViewController {
             
             spinner.show(in: view)
             
-            // Firebase Log In
+            // Firebase Log Inx
             FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
                 guard let strongSelf = self else {
                     return
