@@ -10,13 +10,12 @@ import FirebaseAuth
 import JGProgressHUD
 
 class ConversationVC: UIViewController {
-
+    
     // MARK: - Properties
     
     private let spinner = JGProgressHUD(style: .dark)
     
     private let tableView: UITableView = {
-       
         let table = UITableView()
         table.isHidden = true
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -32,6 +31,7 @@ class ConversationVC: UIViewController {
         label.textColor = .gray
         label.font = .systemFont(ofSize: 21, weight: .medium)
         label.isHidden = true
+        
         return label
     }()
     
@@ -44,6 +44,7 @@ class ConversationVC: UIViewController {
         setupViews()
         setConstraints()
         setupDelegate()
+        
         fetchConversations()
     }
     
@@ -60,6 +61,8 @@ class ConversationVC: UIViewController {
     // MARK: - Setup
     
     private func setupViews() {
+        title = "Chats"
+        
         view.backgroundColor = .systemBackground
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
                                                             target: self,
@@ -70,11 +73,11 @@ class ConversationVC: UIViewController {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-                    tableView.topAnchor.constraint(equalTo: view.topAnchor),
-                    tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
-                ])
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setupDelegate() {

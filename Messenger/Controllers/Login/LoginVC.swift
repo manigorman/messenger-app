@@ -10,130 +10,174 @@ import FirebaseAuth
 import JGProgressHUD
 
 class LoginVC: UIViewController {
-
-    private let spinner = JGProgressHUD(style: .dark)
     
-    private let scrollView: UIScrollView = {
+    // MARK: - Properties
+    
+    let spinner = JGProgressHUD(style: .dark)
+    
+    let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.clipsToBounds = true
+//        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
-    } ()
+    }()
     
-    private let imageView: UIImageView = { // Создание и настройка логотипа
+    let contentView: UIView = {
+        let view = UIView()
+//        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        return view
+    }()
+    
+    let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
         imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
-    } ()
+    }()
     
-    private let emailField: UITextField = { // Создание и настройка поля имейла
+    let emailField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .continue
-        field.textColor = UIColor.white
-        field.layer.cornerRadius = 12
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        //field.placeholder = "Email Address..."
-        field.attributedPlaceholder = NSAttributedString(string: "Email Address...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
-        
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
-        field.backgroundColor = .link
+//        field.layer.cornerRadius = 12
+//        field.layer.borderWidth = 1
+//        field.layer.borderColor = UIColor.lightGray.cgColor
+        field.placeholder = "Email Address..."
+        field.backgroundColor = .white
+//        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+//        field.leftViewMode = .always
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
-    private let passwordField: UITextField = { // Создание и настройка поля пароля
+    let passwordField: UITextField = {
         let field = UITextField()
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .done
-        field.textColor = UIColor.white
         field.layer.borderWidth = 1
         field.layer.cornerRadius = 12
         field.layer.borderColor = UIColor.lightGray.cgColor
-        //field.placeholder = "Password..."
-        field.attributedPlaceholder = NSAttributedString(string: "Password...", attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        field.placeholder = "Password..."
         field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
         field.leftViewMode = .always
-        field.backgroundColor = .link
         field.isSecureTextEntry = true
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
-    private let loginButton: UIButton = { // Создание и настройка кнопки входа
+    let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         button.backgroundColor = .link
+        button.addTarget(self,
+                              action: #selector(loginButtonTapped),
+                              for: .touchUpInside)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
-    } ()
+    }()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        setupViews()
+//        setConstraints()
+        setupScrollView()
+        contentView.backgroundColor = .purple
+        setupDelegate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
+    // MARK: - Setup
+    
+    private func setupViews() {
         title = "Login" // Заголовок нашего окна входа nav
+        view.backgroundColor = .systemBackground
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", // Cоздаем правую кнопку на верхней панели
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapRegister))
         
-        loginButton.addTarget(self,
-                              action: #selector(loginButtonTapped),
-                              for: .touchUpInside)
-        
-        emailField.delegate = self // настраиваем кнопку клавиатуры
+//        view.addSubview(scrollView)
+//        scrollView.addSubview(contentView)
+//        contentView.addSubview(imageView)
+//        contentView.addSubview(emailField)
+//        contentView.addSubview(passwordField)
+//        contentView.addSubview(loginButton)
+    }
+    
+//    private func setConstraints() {
+//        NSLayoutConstraint.activate([
+//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//
+//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+//
+//
+//            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+//            imageView.widthAnchor.constraint(equalToConstant: 100),
+//            imageView.heightAnchor.constraint(equalToConstant: 100),
+//
+//            emailField.topAnchor.constraint(equalTo: imageView.bottomAnchor),
+//            emailField.heightAnchor.constraint(equalToConstant: 20),
+//            emailField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20),
+//            emailField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
+//
+//            loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+//            loginButton.topAnchor.constraint(equalTo: emailField.bottomAnchor),
+//            loginButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+//            loginButton.heightAnchor.constraint(equalToConstant: 20)
+//        ])
+//    }
+//
+    
+    func setupScrollView(){
+           scrollView.translatesAutoresizingMaskIntoConstraints = false
+           contentView.translatesAutoresizingMaskIntoConstraints = false
+           view.addSubview(scrollView)
+           scrollView.addSubview(contentView)
+           
+           scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+           scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+           scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+           scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+           
+           contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+           contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+           contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+           contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+       }
+    private func setupDelegate() {
+        emailField.delegate = self
         passwordField.delegate = self
-        
-        // Add subviews
-        view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(emailField)
-        scrollView.addSubview(passwordField)
-        scrollView.addSubview(loginButton)
-        // scrollView.addSubview(spinner)
     }
     
-    override func viewDidLayoutSubviews() { // Указываем размеры наших subviews, задаем их отступы
-        super .viewDidLayoutSubviews()
-        
-        scrollView.frame = view.bounds
-        
-        let size = scrollView.width / 3
-        
-        imageView.frame = CGRect(x: (scrollView.width - size) / 2,
-                                 y: 20,
-                                 width: size,
-                                 height: size)
-        
-        emailField.frame = CGRect(x: 30,
-                                  y: imageView.bottom + 10,
-                                  width: scrollView.width - 60,
-                                 height: 52)
-        
-        passwordField.frame = CGRect(x: 30,
-                                     y: emailField.bottom + 10,
-                                     width: scrollView.width - 60,
-                                     height: 52)
-        
-        loginButton.frame = CGRect(x: 30,
-                                     y: passwordField.bottom + 10,
-                                     width: scrollView.width - 60,
-                                     height: 52)
-    }
+    // MARK: - Selectors
     
-    @objc private func loginButtonTapped() {
+    @objc func loginButtonTapped() {
         
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
@@ -143,41 +187,47 @@ class LoginVC: UIViewController {
             return
         }
         
-//        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
-//            guard let strongSelf = self else {
-//                return
-//            }
-//            
-//            guard !exists else {
-//                //user already exists
-//                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
-//                return
-//            }
-            
-            
-            spinner.show(in: view)
-            
-            // Firebase Log Inx
-            FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-                guard let strongSelf = self else {
-                    return
-                }
-                DispatchQueue.main.async {
-                    strongSelf.spinner.dismiss()
-                }
-                
-                guard let result = authResult, error == nil else {
-                    print("Failed to log in user with email: \(email)")
-                    return
-                }
-                let user = result.user
-                print("Logged In User: \(user)")
-                strongSelf.navigationController?.dismiss(animated: true, completion: nil)
+        //        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
+        //            guard let strongSelf = self else {
+        //                return
+        //            }
+        //
+        //            guard !exists else {
+        //                //user already exists
+        //                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
+        //                return
+        //            }
+        
+        
+        spinner.show(in: view)
+        
+        // Firebase Log Inx
+        FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
+            guard let strongSelf = self else {
+                return
             }
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
+            
+            guard let result = authResult, error == nil else {
+                print("Failed to log in user with email: \(email)")
+                return
+            }
+            let user = result.user
+            print("Logged In User: \(user)")
+            strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
-//    }
-        
-        
+    }
+    //    }
+    
+    @objc func didTapRegister() {
+        let vc = RegisterVC() // Создаем ViewController для окна регистрации
+        vc.title = "Create account" // Заголовок нашего окна регистрации vc
+        navigationController?.pushViewController(vc, animated: true) // Отправляем окно регистрации на nav
+    }
+    
+    // MARK: - Methods
     
     func alertUserLoginError(message: String = "Please enter all information to create a new account.") {
         let alert = UIAlertController(title: "Woops",
@@ -188,27 +238,6 @@ class LoginVC: UIViewController {
                                       style: .cancel,
                                       handler: nil))
         present(alert, animated: true)
-    }
-    
-    @objc private func didTapRegister() {
-        let vc = RegisterVC() // Создаем ViewController для окна регистрации
-        vc.title = "Create account" // Заголовок нашего окна регистрации vc
-        navigationController?.pushViewController(vc, animated: true) // Отправляем окно регистрации на nav
-    }
-    
-}
-
-extension LoginVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == emailField {
-            passwordField.becomeFirstResponder()
-        }
-        else if textField == passwordField {
-            loginButtonTapped()
-        }
-        
-        return true
     }
     
 }
