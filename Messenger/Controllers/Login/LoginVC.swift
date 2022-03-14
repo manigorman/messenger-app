@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-class LoginViewController: UIViewController {
+class LoginVC: UIViewController {
 
     private let spinner = JGProgressHUD(style: .dark)
     
@@ -191,14 +191,14 @@ class LoginViewController: UIViewController {
     }
     
     @objc private func didTapRegister() {
-        let vc = RegisterViewController() // Создаем ViewController для окна регистрации
+        let vc = RegisterVC() // Создаем ViewController для окна регистрации
         vc.title = "Create account" // Заголовок нашего окна регистрации vc
         navigationController?.pushViewController(vc, animated: true) // Отправляем окно регистрации на nav
     }
     
 }
 
-extension LoginViewController: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
+extension LoginVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {

@@ -8,9 +8,9 @@
 import UIKit
 import FirebaseAuth
 
-class ProfileViewController: UIViewController {
+class ProfileVC: UIViewController {
 
-    @IBOutlet var tableView: UITableView!
+    private let tableView = UITableView()
     
     let data = ["Log Out"]
     
@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController {
 
 }
 
-extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+extension ProfileVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
@@ -54,7 +54,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                                         do {
                                             try FirebaseAuth.Auth.auth().signOut()
                                             
-                                            let vc = LoginViewController() // Создаем ViewController для окна входа
+                                            let vc = LoginVC() // Создаем ViewController для окна входа
                                             let nav = UINavigationController(rootViewController: vc) // создаем NavigationController с корневым ViewController в vc
                                             nav.modalPresentationStyle = .fullScreen // Стиль открытия nav - полноэкранный
                                             strongSelf.present(nav, animated: true) // Показать nav без анимации

@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
-class RegisterViewController: UIViewController {
+class RegisterVC: UIViewController {
 
     let spinner = JGProgressHUD(style: .dark)
     
@@ -263,7 +263,7 @@ class RegisterViewController: UIViewController {
     
 }
 
-extension RegisterViewController: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
+extension RegisterVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == firstNameField {
@@ -283,7 +283,7 @@ extension RegisterViewController: UITextFieldDelegate { // Кнопки continue
     }
 }
 
-extension RegisterViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension RegisterVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func presentPhotoActionSheet() {
         let actionSheet = UIAlertController(title: "Profile picture",

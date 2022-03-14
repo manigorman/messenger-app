@@ -10,29 +10,32 @@ import UIKit
 class MainTabBarVC: UITabBarController {
 
     
-    //MARK: - Life Cycle
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTabBar()
     }
     
+    // MARK: - Setup
     
     func setupTabBar() {
-        tabBar.backgroundColor = .red
         
+        let chatsVC = createNavController(with: ConversationVC(), selected: UIImage(systemName: "house"), unselected: UIImage(systemName: "house.fill"), title: "Chats")
         
-        
-        let chatsVC = UINavigationController(rootViewController: ConversationViewController())
-        chatsVC.tabBarItem.image = UIImage(systemName: "house")
-        chatsVC.tabBarItem.image = UIImage(systemName: "house.fill")
-        chatsVC.title = "Chats"
-        
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
-//        profileVC.tabBarItem.image = unselected
-//        profileVC.tabBarItem.image = selected
-        chatsVC.title = "Profile"
+        let profileVC = createNavController(with: ProfileVC(), selected: nil, unselected: nil, title: "Profile")
         
         setViewControllers([chatsVC, profileVC], animated: false)
     }
+    
+    func createNavController(with vc: UIViewController, selected: UIImage?, unselected: UIImage?, title: String) -> UINavigationController {
+            let viewController = vc
+            let navController = UINavigationController(rootViewController: viewController)
+            navController.tabBarItem.image = unselected
+            navController.tabBarItem.image = selected
+            navController.title = title
+            
+            return navController
+        }
 }

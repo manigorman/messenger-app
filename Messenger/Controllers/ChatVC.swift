@@ -26,7 +26,7 @@ struct Sender: SenderType {
     var displayName: String
 }
 
-class ChatViewController: MessagesViewController {
+class ChatVC: MessagesViewController {
 
     private var messages = [Message]()
     
@@ -46,7 +46,7 @@ class ChatViewController: MessagesViewController {
     }
 }
 
-extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
+extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
     func currentSender() -> SenderType {
         selfSender
     }

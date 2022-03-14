@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotoViewerViewController: UIViewController {
+class PhotoViewerVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

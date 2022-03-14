@@ -8,7 +8,7 @@
 import UIKit
 import JGProgressHUD
 
-class NewConversationViewController: UIViewController {
+class NewConversationVC: UIViewController {
     
     private let spinner = JGProgressHUD()
     
@@ -55,7 +55,7 @@ class NewConversationViewController: UIViewController {
     }
 }
 
-extension NewConversationViewController: UISearchBarDelegate {
+extension NewConversationVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         
