@@ -35,6 +35,7 @@ class MainTabBarVC: UITabBarController {
         navController.tabBarItem.image = unselected
         navController.tabBarItem.selectedImage = selected
         navController.title = title
+        navController.navigationBar.prefersLargeTitles = true
         
         return navController
     }

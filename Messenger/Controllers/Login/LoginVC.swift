@@ -17,22 +17,22 @@ class LoginVC: UIViewController {
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-//        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
     }()
     
     let contentView: UIView = {
-        let view = UIView()
-//        view.translatesAutoresizingMaskIntoConstraints = false
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         
-        return view
+        return contentView
     }()
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         
         return imageView
@@ -43,13 +43,8 @@ class LoginVC: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .continue
-//        field.layer.cornerRadius = 12
-//        field.layer.borderWidth = 1
-//        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.placeholder = "Email Address..."
-        field.backgroundColor = .white
-//        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-//        field.leftViewMode = .always
+        field.placeholder = "Email"
+        field.borderStyle = .roundedRect
         field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
@@ -60,12 +55,8 @@ class LoginVC: UIViewController {
         field.autocapitalizationType = .none
         field.autocorrectionType = .no
         field.returnKeyType = .done
-        field.layer.borderWidth = 1
-        field.layer.cornerRadius = 12
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.placeholder = "Password..."
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
+        field.placeholder = "Password"
+        field.borderStyle = .roundedRect
         field.isSecureTextEntry = true
         field.translatesAutoresizingMaskIntoConstraints = false
         
@@ -75,13 +66,19 @@ class LoginVC: UIViewController {
     let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
-        button.backgroundColor = .link
-        button.addTarget(self,
-                              action: #selector(loginButtonTapped),
-                              for: .touchUpInside)
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.setTitleColor(.link, for: .normal)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
+    
+    let forgetPasswordButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Forgot password?", for: .normal)
+        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.setTitleColor(.link, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
@@ -91,11 +88,8 @@ class LoginVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
-//        setConstraints()
-        setupScrollView()
-        contentView.backgroundColor = .purple
+        setConstraints()
         setupDelegate()
     }
     
@@ -107,69 +101,63 @@ class LoginVC: UIViewController {
     // MARK: - Setup
     
     private func setupViews() {
-        title = "Login" // Заголовок нашего окна входа nav
+        title = "Login"
         view.backgroundColor = .systemBackground
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register", // Cоздаем правую кнопку на верхней панели
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Register",
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapRegister))
+        scrollView.contentOffset = .zero
         
-//        view.addSubview(scrollView)
-//        scrollView.addSubview(contentView)
-//        contentView.addSubview(imageView)
-//        contentView.addSubview(emailField)
-//        contentView.addSubview(passwordField)
-//        contentView.addSubview(loginButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(emailField)
+        contentView.addSubview(passwordField)
+        contentView.addSubview(loginButton)
+        contentView.addSubview(forgetPasswordButton)
     }
     
-//    private func setConstraints() {
-//        NSLayoutConstraint.activate([
-//            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
-//            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//
-//            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-//            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-//            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-//
-//
-//            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-//            imageView.widthAnchor.constraint(equalToConstant: 100),
-//            imageView.heightAnchor.constraint(equalToConstant: 100),
-//
-//            emailField.topAnchor.constraint(equalTo: imageView.bottomAnchor),
-//            emailField.heightAnchor.constraint(equalToConstant: 20),
-//            emailField.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20),
-//            emailField.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 20)
-//
-//            loginButton.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-//            loginButton.topAnchor.constraint(equalTo: emailField.bottomAnchor),
-//            loginButton.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-//            loginButton.heightAnchor.constraint(equalToConstant: 20)
-//        ])
-//    }
-//
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            emailField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            emailField.heightAnchor.constraint(equalToConstant: 40),
+            emailField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            emailField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
+            passwordField.heightAnchor.constraint(equalToConstant: 40),
+            passwordField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            passwordField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            loginButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            loginButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            loginButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            loginButton.heightAnchor.constraint(equalToConstant: 40),
+            
+            forgetPasswordButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            forgetPasswordButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 40),
+            forgetPasswordButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            forgetPasswordButton.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
     
-    func setupScrollView(){
-           scrollView.translatesAutoresizingMaskIntoConstraints = false
-           contentView.translatesAutoresizingMaskIntoConstraints = false
-           view.addSubview(scrollView)
-           scrollView.addSubview(contentView)
-           
-           scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-           scrollView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-           scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-           scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-           
-           contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-           contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-           contentView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-           contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-       }
+    
     private func setupDelegate() {
         emailField.delegate = self
         passwordField.delegate = self

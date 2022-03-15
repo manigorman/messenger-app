@@ -10,128 +10,126 @@ import FirebaseAuth
 import JGProgressHUD
 
 class RegisterVC: UIViewController {
+    
+    //MARK: - Properties
 
     let spinner = JGProgressHUD(style: .dark)
     
     let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
-        scrollView.clipsToBounds = true
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         
         return scrollView
-    } ()
+    }()
+    
+    let contentView: UIView = {
+        let contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return contentView
+    }()
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(systemName: "person.circle")
+        imageView.image = UIImage(systemName: "person")
         imageView.tintColor = .gray
-        imageView.tintColor = .white
-        imageView.contentMode = .scaleAspectFit
-        imageView.layer.masksToBounds = true
-//        imageView.layer.borderWidth = 2
-//        imageView.layer.borderColor = UIColor.lightGray.cgColor
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
         return imageView
-    } ()
+    }()
     
     let firstNameField: UITextField = {
         let field = UITextField()
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.placeholder = "First Name..."
-        field.backgroundColor = .white
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.layer.cornerRadius = 12
+        field.placeholder = "First Name"
+        field.borderStyle = .roundedRect
         field.returnKeyType = .continue
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
     let lastNameField: UITextField = {
         let field = UITextField()
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.placeholder = "Last Name..."
-        field.backgroundColor = .white
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.layer.cornerRadius = 12
+        field.placeholder = "Last Name"
+        field.borderStyle = .roundedRect
         field.returnKeyType = .continue
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
     let emailField: UITextField = {
         let field = UITextField()
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.placeholder = "Email Address..."
-        field.backgroundColor = .white
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.layer.cornerRadius = 12
+        field.placeholder = "Email"
+        field.borderStyle = .roundedRect
         field.returnKeyType = .continue
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
     let passwordField: UITextField = {
         let field = UITextField()
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.placeholder = "Password..."
-        field.backgroundColor = .white
-        field.layer.borderWidth = 1
-        field.layer.borderColor = UIColor.lightGray.cgColor
-        field.layer.cornerRadius = 12
+        field.placeholder = "Password"
+        field.borderStyle = .roundedRect
         field.returnKeyType = .done
-        field.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
-        field.leftViewMode = .always
         field.isSecureTextEntry = true
+        field.translatesAutoresizingMaskIntoConstraints = false
         
         return field
-    } ()
+    }()
     
     let registerButton: UIButton = {
         let button = UIButton()
         button.setTitle("Register", for: .normal)
-        button.backgroundColor = .white
-        button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
+        button.setTitleColor(.link, for: .normal)
+        button.addTarget(self, action: #selector(registerButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         return button
-    } ()
+    }()
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .link
+        
+        setupViews()
+        setConstraints()
+        setupDelegate()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+    }
+    
+    // MARK: - Setup
+    
+    private func setupViews() {
         
         title = "Register"
-        
-        registerButton.addTarget(self,
-                                 action: #selector(registerButtonTapped),
-                                 for: .touchUpInside)
-        
-        firstNameField.delegate = self
-        lastNameField.delegate = self
-        emailField.delegate = self
-        passwordField.delegate = self
+        view.backgroundColor = .systemBackground
         
         // Add subviews
         view.addSubview(scrollView)
-        scrollView.addSubview(imageView)
-        scrollView.addSubview(firstNameField)
-        scrollView.addSubview(lastNameField)
-        scrollView.addSubview(emailField)
-        scrollView.addSubview(passwordField)
-        scrollView.addSubview(registerButton)
+        scrollView.addSubview(contentView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(firstNameField)
+        contentView.addSubview(lastNameField)
+        contentView.addSubview(emailField)
+        contentView.addSubview(passwordField)
+        contentView.addSubview(registerButton)
         
         scrollView.isUserInteractionEnabled = true
         imageView.isUserInteractionEnabled = true
@@ -139,56 +137,71 @@ class RegisterVC: UIViewController {
         let gesture = UITapGestureRecognizer(target: self,
                                              action: #selector(didTapChangeProfilePic))
         imageView.addGestureRecognizer(gesture)
-    
+        
+        scrollView.contentOffset = .zero
     }
+    
+    private func setConstraints() {
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 100),
+            imageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            firstNameField.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            firstNameField.heightAnchor.constraint(equalToConstant: 40),
+            firstNameField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            firstNameField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            lastNameField.topAnchor.constraint(equalTo: firstNameField.bottomAnchor, constant: 20),
+            lastNameField.heightAnchor.constraint(equalToConstant: 40),
+            lastNameField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            lastNameField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            emailField.topAnchor.constraint(equalTo: lastNameField.bottomAnchor, constant: 20),
+            emailField.heightAnchor.constraint(equalToConstant: 40),
+            emailField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            emailField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            passwordField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 20),
+            passwordField.heightAnchor.constraint(equalToConstant: 40),
+            passwordField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            passwordField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            registerButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            registerButton.topAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: 20),
+            registerButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            registerButton.heightAnchor.constraint(equalToConstant: 40)
+            
+        ])
+    }
+    
+    
+    private func setupDelegate() {
+        firstNameField.delegate = self
+        lastNameField.delegate = self
+        emailField.delegate = self
+        passwordField.delegate = self
+    }
+    
+    // MARK: - Selectors
     
     @objc private func didTapChangeProfilePic() {
         presentPhotoActionSheet()
         
     }
     
-    override func viewDidLayoutSubviews() {
-        super .viewDidLayoutSubviews()
-        
-        scrollView.frame = view.bounds
-        
-        let size = scrollView.width / 3
-        
-        
-        imageView.frame = CGRect(x: (scrollView.width - size) / 2,
-                                  y: 20,
-                                  width: size,
-                                  height: size)
-        imageView.layer.cornerRadius = imageView.width / 2
-        
-        firstNameField.frame = CGRect(x: 30,
-                                      y: imageView.bottom + 20,
-                                      width: scrollView.width - 60,
-                                      height: 52)
-        
-        lastNameField.frame = CGRect(x: 30,
-                                     y: firstNameField.bottom + 10,
-                                     width: scrollView.width - 60,
-                                     height: 52)
-        
-        emailField.frame = CGRect(x: 30,
-                                  y: lastNameField.bottom + 10,
-                                  width: scrollView.width - 60,
-                                  height: 52)
-        
-        passwordField.frame = CGRect(x: 30,
-                                     y: emailField.bottom + 10,
-                                     width: scrollView.width - 60,
-                                     height: 52)
-        
-        registerButton.frame = CGRect(x: 30,
-                                      y: passwordField.bottom + 10,
-                                      width: scrollView.width - 60,
-                                      height: 52)
-        
-    }
-    
-    @objc private func registerButtonTapped() {
+    @objc func registerButtonTapped() {
         
         firstNameField.resignFirstResponder()
         lastNameField.resignFirstResponder()
@@ -251,6 +264,8 @@ class RegisterVC: UIViewController {
         }
     }
     
+    // MARK: - Methods
+    
     func alertUserRegisterError() {
         let alert = UIAlertController(title: "Woops",
                                      message: "Please enter all information to create a new account.",
@@ -259,27 +274,6 @@ class RegisterVC: UIViewController {
                                       style: .default,
                                       handler: nil))
         present(alert, animated: true)
-    }
-    
-}
-
-extension RegisterVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == firstNameField {
-            lastNameField.becomeFirstResponder()
-        }
-        else if textField == lastNameField {
-            emailField.becomeFirstResponder()
-        }
-        else if textField == emailField {
-            passwordField.becomeFirstResponder()
-        }
-        else if textField == passwordField {
-            registerButtonTapped()
-        }
-        
-        return true
     }
 }
 

@@ -10,6 +10,7 @@
 		B5F99F2A414FFD7CDD8B3F77 /* Pods_Messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F45EA6B2B2A755BE05FF4890 /* Pods_Messenger.framework */; };
 		C5097DCA27DFD380004F7C0A /* ProfileVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DC927DFD380004F7C0A /* ProfileVC+TableView.swift */; };
 		C5097DCC27DFD5A9004F7C0A /* LoginVC+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */; };
+		C5097DCE27E09E35004F7C0A /* RegisterVC+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */; };
 		C52B362827DF733F00816EA0 /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52B362727DF733F00816EA0 /* MainTabBarVC.swift */; };
 		C52B362B27DF7AA800816EA0 /* ConversationVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52B362A27DF7AA800816EA0 /* ConversationVC+TableView.swift */; };
 		C53A990B26EFAC4A0015EECC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A990A26EFAC4A0015EECC /* LoginVC.swift */; };
@@ -34,6 +35,7 @@
 		2669E54D72B30894CF502982 /* Pods-Messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Messenger.debug.xcconfig"; path = "Target Support Files/Pods-Messenger/Pods-Messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		C5097DC927DFD380004F7C0A /* ProfileVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileVC+TableView.swift"; sourceTree = "<group>"; };
 		C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginVC+TextField.swift"; sourceTree = "<group>"; };
+		C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterVC+TextField.swift"; sourceTree = "<group>"; };
 		C52B362727DF733F00816EA0 /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		C52B362A27DF7AA800816EA0 /* ConversationVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConversationVC+TableView.swift"; sourceTree = "<group>"; };
 		C53A990A26EFAC4A0015EECC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				C52B362A27DF7AA800816EA0 /* ConversationVC+TableView.swift */,
 				C5097DC927DFD380004F7C0A /* ProfileVC+TableView.swift */,
 				C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */,
+				C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				C5097DCC27DFD5A9004F7C0A /* LoginVC+TextField.swift in Sources */,
 				C53A991A26EFC4320015EECC /* Extensions.swift in Sources */,
 				C5CB36CF26EFA7890037A6DF /* AppDelegate.swift in Sources */,
+				C5097DCE27E09E35004F7C0A /* RegisterVC+TextField.swift in Sources */,
 				C53A991526EFADCA0015EECC /* ProfileVC.swift in Sources */,
 				C5CB36D126EFA7890037A6DF /* SceneDelegate.swift in Sources */,
 				C5A8697626FF358500F5FEA8 /* ChatVC.swift in Sources */,
