@@ -10,6 +10,8 @@ import JGProgressHUD
 
 class NewConversationVC: UIViewController {
     
+    // MARK: - Properties
+    
     private let spinner = JGProgressHUD()
     
     private let searchBar: UISearchBar = {
@@ -38,17 +40,32 @@ class NewConversationVC: UIViewController {
         return label
     }()
     
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchBar.delegate = self
-        view.backgroundColor = .white
+        
+        setupViews()
+        setupDelegates()
+        searchBar.becomeFirstResponder()
+    }
+    
+    // MARK: - Setup
+    
+    private func setupViews() {
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.topItem?.titleView = searchBar
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Cancel",
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(dismissSelf))
-        searchBar.becomeFirstResponder()
     }
+    
+    private func setupDelegates() {
+        searchBar.delegate = self
+    }
+    
+    // MARK: - Selectors
     
     @objc private func dismissSelf() {
         dismiss(animated: true, completion: nil)

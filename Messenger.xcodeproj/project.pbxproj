@@ -11,6 +11,7 @@
 		C5097DCA27DFD380004F7C0A /* ProfileVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DC927DFD380004F7C0A /* ProfileVC+TableView.swift */; };
 		C5097DCC27DFD5A9004F7C0A /* LoginVC+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */; };
 		C5097DCE27E09E35004F7C0A /* RegisterVC+TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */; };
+		C510324F27E3570400BCD98F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C510324E27E3570400BCD98F /* GoogleService-Info.plist */; };
 		C52B362827DF733F00816EA0 /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52B362727DF733F00816EA0 /* MainTabBarVC.swift */; };
 		C52B362B27DF7AA800816EA0 /* ConversationVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52B362A27DF7AA800816EA0 /* ConversationVC+TableView.swift */; };
 		C53A990B26EFAC4A0015EECC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A990A26EFAC4A0015EECC /* LoginVC.swift */; };
@@ -22,7 +23,6 @@
 		C53A991A26EFC4320015EECC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991926EFC4320015EECC /* Extensions.swift */; };
 		C5520FBE2701B3EB00C209CB /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5520FBD2701B3EB00C209CB /* StorageManager.swift */; };
 		C5A8697626FF358500F5FEA8 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A8697526FF358500F5FEA8 /* ChatVC.swift */; };
-		C5C744D326F0D71B00B52F7F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5C744D226F0D71B00B52F7F /* GoogleService-Info.plist */; };
 		C5C744D526F0F26200B52F7F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C744D426F0F26200B52F7F /* DatabaseManager.swift */; };
 		C5CB36CF26EFA7890037A6DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */; };
 		C5CB36D126EFA7890037A6DF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36D026EFA7890037A6DF /* SceneDelegate.swift */; };
@@ -36,6 +36,7 @@
 		C5097DC927DFD380004F7C0A /* ProfileVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileVC+TableView.swift"; sourceTree = "<group>"; };
 		C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginVC+TextField.swift"; sourceTree = "<group>"; };
 		C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RegisterVC+TextField.swift"; sourceTree = "<group>"; };
+		C510324E27E3570400BCD98F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C52B362727DF733F00816EA0 /* MainTabBarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		C52B362A27DF7AA800816EA0 /* ConversationVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ConversationVC+TableView.swift"; sourceTree = "<group>"; };
 		C53A990A26EFAC4A0015EECC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -47,7 +48,6 @@
 		C53A991926EFC4320015EECC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C5520FBD2701B3EB00C209CB /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C5A8697526FF358500F5FEA8 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
-		C5C744D226F0D71B00B52F7F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C5C744D426F0F26200B52F7F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C5CB36CB26EFA7890037A6DF /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 		C5CB36CD26EFA7890037A6DF /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
-				C5C744D226F0D71B00B52F7F /* GoogleService-Info.plist */,
+				C510324E27E3570400BCD98F /* GoogleService-Info.plist */,
 				C53A990826EFAA780015EECC /* Resources */,
 				C53A990726EFAA650015EECC /* ViewModels */,
 				C53A990626EFAA590015EECC /* Models */,
@@ -260,8 +260,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5CB36DB26EFA78A0037A6DF /* LaunchScreen.storyboard in Resources */,
-				C5C744D326F0D71B00B52F7F /* GoogleService-Info.plist in Resources */,
 				C5CB36D826EFA78A0037A6DF /* Assets.xcassets in Resources */,
+				C510324F27E3570400BCD98F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

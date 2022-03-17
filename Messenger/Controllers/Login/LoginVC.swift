@@ -189,7 +189,7 @@ class LoginVC: UIViewController {
         
         spinner.show(in: view)
         
-        // Firebase Log Inx
+        // Firebase Log In
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard let strongSelf = self else {
                 return
@@ -202,6 +202,7 @@ class LoginVC: UIViewController {
                 print("Failed to log in user with email: \(email)")
                 return
             }
+            
             let user = result.user
             print("Logged In User: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
@@ -210,8 +211,7 @@ class LoginVC: UIViewController {
     //    }
     
     @objc func didTapRegister() {
-        let vc = RegisterVC() // Создаем ViewController для окна регистрации
-        vc.title = "Create account" // Заголовок нашего окна регистрации vc
+        let vc = RegisterVC()
         navigationController?.pushViewController(vc, animated: true) // Отправляем окно регистрации на nav
     }
     

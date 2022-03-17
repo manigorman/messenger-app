@@ -96,8 +96,8 @@ class ConversationVC: UIViewController {
     // MARK: - Methods
     
     private func validateAuth() {
-        if FirebaseAuth.Auth.auth().currentUser == nil { // Если пользователь не входил
-            let vc = LoginVC() // Создаем ViewController для окна входа
+        if FirebaseAuth.Auth.auth().currentUser == nil {
+            let vc = LoginVC()
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
             nav.navigationBar.prefersLargeTitles = true

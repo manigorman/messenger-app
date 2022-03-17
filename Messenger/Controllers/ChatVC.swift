@@ -8,6 +8,8 @@
 import UIKit
 import MessageKit
 
+// MARK: - Structs
+
 struct Message: MessageType {
     var sender: SenderType
     
@@ -28,9 +30,13 @@ struct Sender: SenderType {
 
 class ChatVC: MessagesViewController {
 
+    // MARK: - Properties
+    
     private var messages = [Message]()
     
     private var selfSender = Sender(photoURL: "", senderId: "1", displayName: "Joe Smith")
+    
+    // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +44,18 @@ class ChatVC: MessagesViewController {
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello World")))
         messages.append(Message(sender: selfSender, messageId: "1", sentDate: Date(), kind: .text("Hello World, Hello World,Hello World,Hello World")))
         
-        view.backgroundColor = .red
-        
+        setupDelegates()
+    }
+    
+    
+    // MARK: - Setup
+    
+    func setupDelegates() {
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
     }
+    
 }
 
 extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
@@ -58,6 +70,4 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
     func numberOfSections(in messagesCollectionView: MessagesCollectionView) -> Int {
         return messages.count
     }
-    
-    
 }

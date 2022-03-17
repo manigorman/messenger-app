@@ -118,7 +118,7 @@ class RegisterVC: UIViewController {
     
     private func setupViews() {
         
-        title = "Register"
+        title = "Create account"
         view.backgroundColor = .systemBackground
         
         // Add subviews
@@ -198,7 +198,6 @@ class RegisterVC: UIViewController {
     
     @objc private func didTapChangeProfilePic() {
         presentPhotoActionSheet()
-        
     }
     
     @objc func registerButtonTapped() {
@@ -237,9 +236,11 @@ class RegisterVC: UIViewController {
                 print("Error creating user")
                 return
             }
+            
             let chatUser = ChatAppUser(firstName: firstName,
                                        lastName: lastName,
                                        emailAddress: email)
+            
             DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
                 if success {
                     // upload image
