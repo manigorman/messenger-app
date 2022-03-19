@@ -169,7 +169,6 @@ extension ChatVC: InputBarAccessoryViewDelegate {
     }
     
     private func createMessageID() -> String? {
-        //date, otherUserEmail, senderEmail, randomInt
         guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }

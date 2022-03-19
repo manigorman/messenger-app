@@ -96,18 +96,6 @@ class ConversationVC: UIViewController {
         present(navVC, animated: true)
     }
     
-    private func createNewConversation(result: [String: String]) {
-        guard let name = result["name"], let email = result["email"] else {
-            return
-        }
-        
-        let vc = ChatVC(with: email)
-        vc.isNewConversation = true
-        vc.title = name
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
     // MARK: - Methods
     
     private func validateAuth() {
@@ -118,6 +106,18 @@ class ConversationVC: UIViewController {
             nav.navigationBar.prefersLargeTitles = true
             present(nav, animated: false)
         }
+    }
+    
+    private func createNewConversation(result: [String: String]) {
+        guard let name = result["name"], let email = result["email"] else {
+            return
+        }
+        
+        let vc = ChatVC(with: email)
+        vc.isNewConversation = true
+        vc.title = name
+        vc.navigationItem.largeTitleDisplayMode = .never
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func fetchConversations() {

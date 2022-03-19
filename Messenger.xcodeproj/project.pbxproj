@@ -23,6 +23,8 @@
 		C53A991A26EFC4320015EECC /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C53A991926EFC4320015EECC /* Extensions.swift */; };
 		C5520FBE2701B3EB00C209CB /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5520FBD2701B3EB00C209CB /* StorageManager.swift */; };
 		C59596A527E50949009DD7FC /* NewConversationVC+TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59596A427E50949009DD7FC /* NewConversationVC+TableView.swift */; };
+		C59596A727E67209009DD7FC /* ChatAppUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59596A627E67209009DD7FC /* ChatAppUser.swift */; };
+		C59596A927E6760B009DD7FC /* NewConversationVC+SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C59596A827E6760B009DD7FC /* NewConversationVC+SearchBar.swift */; };
 		C5A8697626FF358500F5FEA8 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5A8697526FF358500F5FEA8 /* ChatVC.swift */; };
 		C5C744D526F0F26200B52F7F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C744D426F0F26200B52F7F /* DatabaseManager.swift */; };
 		C5CB36CF26EFA7890037A6DF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CB36CE26EFA7890037A6DF /* AppDelegate.swift */; };
@@ -49,6 +51,8 @@
 		C53A991926EFC4320015EECC /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		C5520FBD2701B3EB00C209CB /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		C59596A427E50949009DD7FC /* NewConversationVC+TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewConversationVC+TableView.swift"; sourceTree = "<group>"; };
+		C59596A627E67209009DD7FC /* ChatAppUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChatAppUser.swift; path = Messenger/Resources/Extensions/ChatAppUser.swift; sourceTree = SOURCE_ROOT; };
+		C59596A827E6760B009DD7FC /* NewConversationVC+SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewConversationVC+SearchBar.swift"; sourceTree = "<group>"; };
 		C5A8697526FF358500F5FEA8 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		C5C744D426F0F26200B52F7F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		C5CB36CB26EFA7890037A6DF /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +96,7 @@
 				C5097DCB27DFD5A9004F7C0A /* LoginVC+TextField.swift */,
 				C5097DCD27E09E35004F7C0A /* RegisterVC+TextField.swift */,
 				C59596A427E50949009DD7FC /* NewConversationVC+TableView.swift */,
+				C59596A827E6760B009DD7FC /* NewConversationVC+SearchBar.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -123,6 +128,7 @@
 		C53A990626EFAA590015EECC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C59596A627E67209009DD7FC /* ChatAppUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C59596A727E67209009DD7FC /* ChatAppUser.swift in Sources */,
 				C53A990B26EFAC4A0015EECC /* LoginVC.swift in Sources */,
 				C5C744D526F0F26200B52F7F /* DatabaseManager.swift in Sources */,
 				C53A990D26EFAC540015EECC /* RegisterVC.swift in Sources */,
@@ -334,6 +341,7 @@
 				C59596A527E50949009DD7FC /* NewConversationVC+TableView.swift in Sources */,
 				C5097DCA27DFD380004F7C0A /* ProfileVC+TableView.swift in Sources */,
 				C52B362B27DF7AA800816EA0 /* ConversationVC+TableView.swift in Sources */,
+				C59596A927E6760B009DD7FC /* NewConversationVC+SearchBar.swift in Sources */,
 				C53A990F26EFAD8A0015EECC /* PhotoViewerVC.swift in Sources */,
 				C5520FBE2701B3EB00C209CB /* StorageManager.swift in Sources */,
 			);

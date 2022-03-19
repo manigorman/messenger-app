@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension RegisterVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
+extension RegisterVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == firstNameField {

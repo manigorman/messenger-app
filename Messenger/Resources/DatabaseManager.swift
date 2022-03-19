@@ -25,10 +25,15 @@ final class DatabaseManager {
 
 extension DatabaseManager {
     
-    public func userExists(with email: String,
-                           completion: @escaping((Bool) -> Void)) {
-        var safeEmail = email.replacingOccurrences(of: ".", with: "-")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+    /// Errors
+    public enum DatabaseError: Error {
+        case failedToFetch
+    }
+    
+    /// Check if user already exists
+    public func userExists(with email: String, completion: @escaping (Bool) -> Void) {
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        
         database.child(safeEmail).observeSingleEvent(of: .value) { snapshot in
             guard snapshot.value as? String != nil else {
                 completion(false)
@@ -40,6 +45,7 @@ extension DatabaseManager {
     
     /// Inserts new user to database
     public func insertUser(with user: ChatAppUser, completion: @escaping (Bool) -> Void) {
+        
         database.child(user.safeEmail).setValue([
             "first_name": user.firstName,
             "last_name": user.lastName,
@@ -57,6 +63,7 @@ extension DatabaseManager {
                         "name": user.firstName + " " + user.lastName,
                         "email": user.safeEmail
                     ]
+                    
                     usersCollection.append(newElement)
                     
                     self.database.child("users").setValue(usersCollection) { error, _ in
@@ -90,7 +97,9 @@ extension DatabaseManager {
         })
     }
     
+    /// Get all users data
     public func getAllUsers(completion: @escaping (Result<[[String: String]], Error>) -> Void) {
+        
         database.child("users").observeSingleEvent(of: .value) { snapshot in
             guard let value = snapshot.value as? [[String:String]] else {
                 completion(.failure(DatabaseError.failedToFetch))
@@ -100,18 +109,15 @@ extension DatabaseManager {
             completion(.success(value))
         }
     }
-    
-    public enum DatabaseError: Error {
-        case failedToFetch
-    }
 }
 
-// MARK: - Sending messages / conversations
+// MARK: - Sending Messages / Conversations
 
 extension DatabaseManager {
     
     /// Creates a new conversation with target user email and first message sent
     public func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        
         guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return
         }
@@ -194,6 +200,7 @@ extension DatabaseManager {
         })
     }
     
+    /// Creates conversation in new branch
     private func finishCreatingConversation(conversationId: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
         var message = ""
         switch firstMessage.kind {
@@ -265,23 +272,5 @@ extension DatabaseManager {
     /// Sends a message with target conversation and message
     public func sendMessage(to conversation: String, message: Message, completion: @escaping (Bool) -> Void) {
         
-    }
-}
-
-struct ChatAppUser {
-    let firstName: String
-    let lastName: String
-    let emailAddress: String
-    
-    var safeEmail: String {
-        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
-        
-        return safeEmail
-    }
-    
-    var profilePictureFileName: String {
-        //manigorman-gmail-com_profile_picture.png
-        return "\(safeEmail)_profile_picture.png"
     }
 }

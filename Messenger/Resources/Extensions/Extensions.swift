@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension UIView { // Добавляем поля для упрощения взятия размеров: view.frame.size. -> view.
+extension UIView {
     
     public var width: CGFloat {
         return self.frame.size.width

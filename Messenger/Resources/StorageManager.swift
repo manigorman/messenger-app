@@ -9,16 +9,18 @@ import Foundation
 import FirebaseStorage
 
 final class StorageManager {
+    
     static let shared = StorageManager()
     
     private let storage = Storage.storage().reference()
     
-    /*
-     /images/manigorman-gmail-com_profile_picture.png
-    */
+    /// Errors
+    public enum StorageErrors: Error {
+        case failedToUpload
+        case failedToGetDownloadUrl
+    }
     
     /// Uploads picture to firebase storage and returns completion with url string to download
-    
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
     
     public func uploadProfilePicture(with data: Data,
@@ -44,11 +46,6 @@ final class StorageManager {
                 completion(.success(urlString))
             })
         })
-    }
-    
-    public enum StorageErrors: Error {
-        case failedToUpload
-        case failedToGetDownloadUrl
     }
     
     public func downloadURL(for path: String, completion: @escaping (Result<URL, Error>) -> Void) {

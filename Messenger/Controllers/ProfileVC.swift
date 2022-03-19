@@ -92,7 +92,7 @@ class ProfileVC: UIViewController {
         return headerView
     }
     
-    func downloadImage(imageView: UIImageView, url: URL) {
+    private func downloadImage(imageView: UIImageView, url: URL) {
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data, error == nil else {
                 return

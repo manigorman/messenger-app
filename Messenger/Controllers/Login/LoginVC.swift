@@ -77,7 +77,7 @@ class LoginVC: UIViewController {
     let forgetPasswordButton: UIButton = {
         let button = UIButton()
         button.setTitle("Forgot password?", for: .normal)
-        button.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(forgotPasswordTapped), for: .touchUpInside)
         button.setTitleColor(.link, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -175,18 +175,6 @@ class LoginVC: UIViewController {
             return
         }
         
-        //        DatabaseManager.shared.userExists(with: email) { [weak self] exists in
-        //            guard let strongSelf = self else {
-        //                return
-        //            }
-        //
-        //            guard !exists else {
-        //                //user already exists
-        //                strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")
-        //                return
-        //            }
-        
-        
         spinner.show(in: view)
         
         // Firebase Log In
@@ -211,11 +199,14 @@ class LoginVC: UIViewController {
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
         }
     }
-    //    }
     
     @objc func didTapRegister() {
         let vc = RegisterVC()
         navigationController?.pushViewController(vc, animated: true) // Отправляем окно регистрации на nav
+    }
+    
+    @objc func forgotPasswordTapped() {
+        //such a pity
     }
     
     // MARK: - Methods

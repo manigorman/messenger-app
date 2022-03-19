@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension LoginVC: UITextFieldDelegate { // Кнопки continue, done клавиатуры начинают работать правильно
+extension LoginVC: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == emailField {
