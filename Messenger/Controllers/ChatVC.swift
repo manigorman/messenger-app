@@ -13,12 +13,39 @@ import InputBarAccessoryView
 
 struct Message: MessageType {
     public var sender: SenderType
-
+    
     public var messageId: String
     
     public var sentDate: Date
     
     public var kind: MessageKind
+}
+
+extension MessageKind {
+    var messageKindString: String {
+        switch self {
+        case .text(_):
+            return "text"
+        case .attributedText(_):
+            return "attributed_text"
+        case .photo(_):
+            return "photo"
+        case .video(_):
+            return "video"
+        case .location(_):
+            return "locatio"
+        case .emoji(_):
+            return "emoji"
+        case .audio(_):
+            return "audio"
+        case .contact(_):
+            return "contact"
+        case .linkPreview(_):
+            return "link_preview"
+        case .custom(_):
+            return "custom"
+        }
+    }
 }
 
 struct Sender: SenderType {
@@ -30,7 +57,7 @@ struct Sender: SenderType {
 }
 
 class ChatVC: MessagesViewController {
-
+    
     // MARK: - Properties
     
     public static let dateFormatter: DateFormatter = {
@@ -81,7 +108,7 @@ class ChatVC: MessagesViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.becomeFirstResponder()
+        //        self.becomeFirstResponder()
         self.messageInputBar.inputTextView.becomeFirstResponder()
     }
     
@@ -118,8 +145,8 @@ extension ChatVC: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDel
 extension ChatVC: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         guard !text.replacingOccurrences(of: " ", with: "").isEmpty,
-        let selfSender = self.selfSender,
-        let messageId = createMessageID() else {
+              let selfSender = self.selfSender,
+              let messageId = createMessageID() else {
             return
         }
         
@@ -143,13 +170,15 @@ extension ChatVC: InputBarAccessoryViewDelegate {
     
     private func createMessageID() -> String? {
         //date, otherUserEmail, senderEmail, randomInt
-        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") else {
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
             return nil
         }
         
+        let safeCurrentEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
+        
         let dateString = Self.dateFormatter.string(from: Date())
         
-        let newIdentifier = "\(otherUserEmail)_\(currentUserEmail)_\(dateString)"
+        let newIdentifier = "\(otherUserEmail)_\(safeCurrentEmail)_\(dateString)"
         print("created message id: \(newIdentifier)")
         
         return newIdentifier

@@ -123,6 +123,7 @@ extension DatabaseManager {
                 print("User not found")
                 return
             }
+            
             let messageDate = firstMessage.sentDate
             let dateString = ChatVC.dateFormatter.string(from: messageDate)
             
@@ -166,13 +167,13 @@ extension DatabaseManager {
                 
                 conversations.append(newConversationData)
                 userNode["conversations"] = conversations
-                ref.setValue(userNode) { error, _ in
+                ref.setValue(userNode) { [weak self] error, _ in
                     guard error == nil else {
                         completion(false)
                         return
                     }
                     
-                    completion(true)
+                    self?.finishCreatingConversation(conversationId: "conversation_\(firstMessage.messageId)", firstMessage: firstMessage, completion: completion)
                 }
             } else {
                 //conversation array doesnot exist
@@ -181,16 +182,75 @@ extension DatabaseManager {
                     newConversationData
                 ]
                 
-                ref.setValue(userNode) { error, _ in
+                ref.setValue(userNode) { [weak self] error, _ in
                     guard error == nil else {
                         completion(false)
                         return
                     }
                     
-                    completion(true)
+                    self?.finishCreatingConversation(conversationId: "conversation_\(firstMessage.messageId)", firstMessage: firstMessage, completion: completion)
                 }
             }
         })
+    }
+    
+    private func finishCreatingConversation(conversationId: String, firstMessage: Message, completion: @escaping (Bool) -> Void) {
+        var message = ""
+        switch firstMessage.kind {
+        case .text(let messageText):
+            message = messageText
+        case .attributedText(_):
+            break
+        case .photo(_):
+            break
+        case .video(_):
+            break
+        case .location(_):
+            break
+        case .emoji(_):
+            break
+        case .audio(_):
+            break
+        case .contact(_):
+            break
+        case .linkPreview(_):
+            break
+        case .custom(_):
+            break
+        }
+        
+        let messageDate = firstMessage.sentDate
+        let dateString = ChatVC.dateFormatter.string(from: messageDate)
+        
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+            completion(false)
+            return
+        }
+        
+        let currentUserEmail = DatabaseManager.safeEmail(emailAddress: email)
+        
+        let collectionMessage: [String: Any] = [
+            "id": firstMessage.messageId,
+            "type": firstMessage.kind.messageKindString,
+            "content": message,
+            "date": dateString,
+            "sender_email": currentUserEmail,
+            "is_read": false
+        ]
+        
+        let value: [String: Any] = [
+            "messages": [
+                collectionMessage
+            ]
+        ]
+        
+        database.child("\(conversationId)").setValue(value) { error, _ in
+            guard error == nil else {
+                completion(false)
+                return
+            }
+            completion(true)
+        }
     }
     
     /// Fetches and returns all conversations for the user with passed in email
