@@ -9,16 +9,31 @@ import UIKit
 import FirebaseAuth
 import JGProgressHUD
 
+struct Conversation {
+    let id: String
+    let name: String
+    let otherUserEmail: String
+    let latestMessage: LatestMessage
+}
+
+struct LatestMessage {
+    let date: String
+    let text: String
+    let isRead: Bool
+}
+
 class ConversationVC: UIViewController {
     
     // MARK: - Properties
     
     private let spinner = JGProgressHUD(style: .dark)
     
+    public var conversations = [Conversation]()
+    
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
         table.translatesAutoresizingMaskIntoConstraints = false
         
         return table
@@ -46,6 +61,7 @@ class ConversationVC: UIViewController {
         setupDelegate()
         
         fetchConversations()
+        startListeningForConversations()
     }
     
     override func viewDidLayoutSubviews() {
@@ -122,6 +138,30 @@ class ConversationVC: UIViewController {
     
     private func fetchConversations() {
         tableView.isHidden = false
+    }
+    
+    private func startListeningForConversations() {
+        guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
+            return
+        }
+        let safeEmail = DatabaseManager.safeEmail(emailAddress: email)
+        DatabaseManager.shared.getAllConversations(for: safeEmail) { [weak self] result in
+            switch result {
+            case .success(let conversations):
+                guard !conversations.isEmpty else {
+                    return
+                }
+                
+                self?.conversations = conversations
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                print("failed to get convos: \(error)")
+            }
+        }
+        
     }
     
 }
